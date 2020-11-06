@@ -2,6 +2,10 @@
 #include <string.h>
 #include <mpi.h>
 
+double f(double x) {
+   return x*x;
+}
+
 double Trap(double left_endpt, double right_endpt, int trap_count, double base_len){
 	double estimate, x;
 	int i;
@@ -16,7 +20,7 @@ double Trap(double left_endpt, double right_endpt, int trap_count, double base_l
 }
 
 int main(void){
-	int my_rank, comm_sz, n = 1024, local_n;
+	int my_rank, comm_sz, n = 24, local_n;
 	double a = 0.0, b = 3.0, h, local_a, local_b;
 	double local_int, total_int;
 	int source;
@@ -42,8 +46,8 @@ int main(void){
 		}
 	}
 	if(my_rank == 0){
-		printf("con n = %d trapezoides, nuestra estimacion /N",n);
-		printf("de el integral desde %f hasta %f = %.15e\n",a,b,total_int);
+		printf("con n = %.0d trapezoides, nuestra estimacion \n",n);
+		printf("de la integral desde %f hasta %f = %.15e\n",a,b,total_int);
 	}
 
 	MPI_Finalize();	
